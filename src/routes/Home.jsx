@@ -99,9 +99,9 @@ export default function Home() {
     <>
       <div className="min-h-full">
         <Nav />
-        <header className="bg-white shadow">
+        <header className="bg-white shadow dark:bg-gray-700 dark:text-white">
           <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex items-center">
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
               {auth.name}'s shopping lists
             </h1>
             <CreateList fetchLists={fetchLists} addStatus={addStatus} />
@@ -115,7 +115,7 @@ export default function Home() {
             >
               <svg
                 aria-hidden="true"
-                className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600 dark:fill-white"
                 viewBox="0 0 100 101"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -132,8 +132,8 @@ export default function Home() {
               <span className="sr-only">Loading...</span>
             </div>
           ) : (
-            <>
-              <div className="mx-auto max-w-7xl py-6 px-6 lg:px-8 grid lg:grid-cols-3 gap-3 md:grid-cols-2 sm:grid-cols-1">
+            <div className="dark:text-white">
+              <div className=" mx-auto max-w-7xl py-6 px-6 lg:px-8 grid lg:grid-cols-3 gap-3 md:grid-cols-2 sm:grid-cols-1">
                 {shoppingList.length != 0 && (
                   <h4 className="col-span-3">Personal lists:</h4>
                 )}
@@ -284,7 +284,7 @@ export default function Home() {
                   </div>
                 ))}
               </div>
-            </>
+            </div>
           )}
         </main>
         {alertSuccess && <Success message={alertMessage} />}

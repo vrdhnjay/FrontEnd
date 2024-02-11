@@ -68,7 +68,7 @@ export default function Members(props) {
       });
   };
   return (
-    <div className=" ml-auto">
+    <div className=" ml-auto dark:text-white">
       <button
         type="button"
         onClick={() => setModalShow(true)}

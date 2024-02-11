@@ -44,6 +44,7 @@ export default function List() {
         let objIndex = productData.findIndex((obj) => obj.id == productId);
         productData[objIndex] = newProduct;
         setProducts(response.data.products);
+        setSearchedProducts(response.data.products);
       })
       .catch((error) => {
         console.log(error);
@@ -60,6 +61,7 @@ export default function List() {
       })
       .then((response) => {
         setSearchedProducts(response.data.products);
+        setProducts(response.data.products);
       })
       .catch((error) => {
         console.log(error);
@@ -134,10 +136,10 @@ export default function List() {
         </div>
       ) : (
         <>
-          <header className="bg-white shadow">
+          <header className="bg-white shadow dark:bg-gray-700 ">
             <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex items-center">
               <div>
-                <h1 className="text-3xl font-bold tracking-tight text-gray-900 mr-3">
+                <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white mr-3">
                   {listName}
                 </h1>
                 {archived ? (
@@ -178,7 +180,7 @@ export default function List() {
           <main>
             <div className="mx-auto max-w-7xl py-6 px-6 lg:px-8">
               <div className="relative overflow-x-auto sm:rounded-lg">
-                <div className="relative bg-white dark:bg-gray-800 sm:rounded-lg">
+                <div className="relative bg-white dark:bg-gray-900 sm:rounded-lg">
                   <div className="flex flex-col items-center justify-between py-3 space-y-3 md:flex-row md:space-y-0 md:space-x-4">
                     <div className="w-full md:w-1/2">
                       <form className="flex items-center">
@@ -208,7 +210,10 @@ export default function List() {
                             onChange={(e) =>
                               setSearch(e.target.value.trimStart())
                             }
-                            disabled={products.length == 0}
+                            disabled={
+                              searchedProducts.length == 0 &&
+                              products.length == 0
+                            }
                             className="block w-full p-2 pl-10 disabled:bg-gray-100 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-200 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="Search"
                             required=""
@@ -232,7 +237,7 @@ export default function List() {
                               setFilter(false);
                             }
                           }}
-                          disabled={products.length == 0}
+                          disabled={searchedProducts.length == 0}
                           className={`${
                             filter == false
                               ? "bg-gray-100 text-blue-700"
@@ -243,7 +248,7 @@ export default function List() {
                         </button>
                         <button
                           type="button"
-                          disabled={products.length == 0}
+                          disabled={searchedProducts.length == 0}
                           onClick={() => {
                             if (filter == true) {
                               setFilter(null);
@@ -282,7 +287,7 @@ export default function List() {
                     </tr>
                   </thead>
 
-                  {products.length == 0 && (
+                  {searchedProducts.length == 0 && search == "" && (
                     <tbody>
                       <tr>
                         <td colSpan={3} className="text-center p-5">
@@ -292,7 +297,9 @@ export default function List() {
                     </tbody>
                   )}
                   <tbody>
-                    {searchedProducts.length == 0 && products.length != 0 ? (
+                    {searchedProducts.length == 0 &&
+                    products.length != 0 &&
+                    search != "" ? (
                       <tr>
                         <td colSpan={3} className="text-center p-5">
                           There's no product related to {search} , try searching
